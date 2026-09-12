@@ -4,19 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>امتحان ابتكار - الاستاذ محمد تيسير الخرشة</title>
+    <title>امتحان الابتكار - الاستاذ محمد تيسير الخرشة</title>
     <!-- مكتبة لعمل تأثيرات الفرح (Confetti) عند العلامة الكاملة -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
          :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #c9d1d9;
-            --accent-color: #00ffcc;
-            --accent-glow: rgba(0, 255, 204, 0.2);
-            --border-color: #30363d;
-            --error-color: #ff5555;
-            --success-color: #55ff55;
+            --bg-color: #080f18;
+            --card-bg: #0d1b2a;
+            --text-color: #e0f2fe;
+            --accent-color: #38bdf8;
+            /* الأزرق السماوي الأساسي */
+            --accent-glow: rgba(56, 189, 248, 0.25);
+            --border-color: #1e3a8a;
+            --error-color: #f87171;
+            --success-color: #4ade80;
         }
         
         * {
@@ -43,7 +44,15 @@
             padding: 20px;
             width: 100%;
             max-width: 900px;
-            box-shadow: 0 0 20px var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
+            display: flex;
+            flex-direction: column;
+            min-height: 85vh;
+            justify-content: space-between;
+        }
+        
+        .content-area {
+            flex-grow: 1;
         }
         
         .welcome-center {
@@ -54,11 +63,11 @@
             color: var(--accent-color);
             margin-bottom: 15px;
             font-size: 1.8rem;
-            text-shadow: 0 0 10px var(--accent-glow);
+            text-shadow: 0 0 12px var(--accent-glow);
         }
         
         h3 {
-            color: #8b949e;
+            color: #93c5fd;
             margin-bottom: 20px;
             font-size: 1.1rem;
         }
@@ -78,7 +87,7 @@
             max-width: 400px;
             padding: 12px;
             font-size: 1.1rem;
-            background-color: #0d1117;
+            background-color: #050b14;
             border: 2px solid var(--border-color);
             color: #fff;
             border-radius: 8px;
@@ -89,7 +98,7 @@
         
         .input-group input:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-glow);
+            box-shadow: 0 0 12px var(--accent-glow);
         }
         
         .btn {
@@ -117,15 +126,15 @@
         }
         
         .btn-warning {
-            color: #ffaa00;
-            border-color: #ffaa00;
-            box-shadow: 0 0 10px rgba(255, 170, 0, 0.2);
+            color: #fbbf24;
+            border-color: #fbbf24;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
         }
         
         .btn-warning:hover {
-            background-color: #ffaa00;
-            color: #0d1117;
-            box-shadow: 0 0 25px #ffaa00;
+            background-color: #fbbf24;
+            color: #080f18;
+            box-shadow: 0 0 25px #fbbf24;
         }
         
         .hidden {
@@ -134,7 +143,7 @@
         /* Form Quiz Styles */
         
         .question-card {
-            background-color: #21262d;
+            background-color: #112240;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 15px;
@@ -145,7 +154,7 @@
         
         .question-card.error-highlight {
             border-color: var(--error-color);
-            box-shadow: 0 0 10px rgba(255, 85, 85, 0.3);
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.3);
         }
         
         .question-title {
@@ -170,12 +179,12 @@
             padding: 10px;
             border-radius: 6px;
             transition: background 0.2s;
-            background-color: #161b22;
+            background-color: #0d1b2a;
             border: 1px solid var(--border-color);
         }
         
         .option-label:hover {
-            background-color: #30363d;
+            background-color: #1d4ed8;
         }
         
         .option-label input[type="radio"] {
@@ -196,7 +205,7 @@
         }
         
         .alert-box {
-            background-color: rgba(255, 85, 85, 0.1);
+            background-color: rgba(248, 113, 113, 0.1);
             border: 1px solid var(--error-color);
             color: var(--error-color);
             padding: 12px;
@@ -211,7 +220,7 @@
             font-size: 1.2rem;
             margin-bottom: 20px;
             text-align: center;
-            background: #21262d;
+            background: #112240;
             padding: 20px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -223,13 +232,24 @@
             font-weight: bold;
             display: block;
             margin-top: 10px;
-            text-shadow: 0 0 10px var(--accent-glow);
+            text-shadow: 0 0 12px var(--accent-glow);
         }
         
         .student-name-display {
             color: #fff;
             font-size: 1.4rem;
             margin-bottom: 10px;
+        }
+        /* Footer Style */
+        
+        .page-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            color: #93c5fd;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
         
         @media (min-width: 768px) {
@@ -252,65 +272,72 @@
 <body>
 
     <div class="container">
-        <!-- الصفحة الترحيبية وإدخال الاسم -->
-        <div id="welcome-screen" class="welcome-center">
-            <h1>امتحان ابتكار</h1>
-            <h3>اعداد الاستاذ محمد تيسير الخرشة</h3>
-            <p>يحتوي هذا الاختبار على 150 سؤالاً. يرجى إدخال اسمك الثلاثي للبدء:</p>
-            <div class="input-group">
-                <input type="text" id="student-name-input" placeholder="ادخل اسمك الكامل هنا..." autocomplete="off">
+        <div class="content-area">
+            <!-- الصفحة الترحيبية وإدخال الاسم -->
+            <div id="welcome-screen" class="welcome-center">
+                <h1>امتحان الابتكار</h1>
+                <h3>اعداد الاستاذ محمد تيسير الخرشة</h3>
+                <p>يحتوي هذا الاختبار على 150 سؤالاً. يرجى إدخال اسمك الثلاثي للبدء:</p>
+                <div class="input-group">
+                    <input type="text" id="student-name-input" placeholder="ادخل اسمك الكامل هنا..." autocomplete="off">
+                </div>
+                <button class="btn" onclick="startQuiz()">ابدأ الاختبار</button>
             </div>
-            <button class="btn" onclick="startQuiz()">ابدأ الاختبار</button>
-        </div>
 
-        <!-- شاشة الفورم (الأسئلة تحت بعضها) -->
-        <div id="quiz-screen" class="hidden">
-            <h1>امتحان ابتكار</h1>
-            <h3 id="quiz-header-name">الطالب: </h3>
-            <div id="validation-alert" class="alert-box hidden">الرجاء الإجابة على جميع الأسئلة الظاهرة قبل إظهار النتيجة! الأسئلة المتبقية محددة بالإطار الأحمر.</div>
-            <form id="quiz-form">
-                <div id="questions-container">
-                    <!-- سيتم إدراج الأسئلة هنا -->
+            <!-- شاشة الفورم (الأسئلة تحت بعضها) -->
+            <div id="quiz-screen" class="hidden">
+                <h1>امتحان الابتكار</h1>
+                <h3 id="quiz-header-name">الطالب: </h3>
+                <div id="validation-alert" class="alert-box hidden">الرجاء الإجابة على جميع الأسئلة الظاهرة قبل إظهار النتيجة! الأسئلة المتبقية محددة بالإطار الأحمر.</div>
+                <form id="quiz-form">
+                    <div id="questions-container">
+                        <!-- سيتم إدراج الأسئلة هنا -->
+                    </div>
+                    <div class="submit-container">
+                        <button type="button" class="btn" onclick="submitFirstAttempt()">إظهار النتيجة النهائية</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- شاشة استدراك الأخطاء (تصحيح الأخطاء فقط) -->
+            <div id="correction-screen" class="hidden">
+                <h1>جولة استدراك وتصحيح الأخطاء</h1>
+                <h3>قم بمراجعة الأسئلة التي أخطأت فيها وعدّل إجاباتك:</h3>
+                <div id="correction-container">
+                    <!-- الأسئلة الخاطئة تظهر هنا فقط -->
                 </div>
                 <div class="submit-container">
-                    <button type="button" class="btn" onclick="submitFirstAttempt()">إظهار النتيجة النهائية</button>
+                    <button type="button" class="btn btn-warning" onclick="submitSecondAttempt()">اعتماد التصحيح وإظهار النتيجة النهائية</button>
                 </div>
-            </form>
+            </div>
+
+            <!-- شاشة النتائج النهائية الأولى والثانية -->
+            <div id="result-screen" class="hidden welcome-center">
+                <h1>تقرير النتيجة النهائية</h1>
+                <div class="student-name-display" id="result-student-name">الطالب: </div>
+
+                <div class="result-box">
+                    <div>النتيجة الأولى (قبل الاستدراك):</div>
+                    <span class="score-highlight" id="first-score-text">0 / 300</span>
+                </div>
+
+                <div class="result-box" id="second-result-box">
+                    <div>النتيجة الثانية (بعد جولة استدراك الأخطاء):</div>
+                    <span class="score-highlight" id="second-score-text" style="color: #fbbf24;">0 / 300</span>
+                </div>
+
+                <div id="congrats-message" class="hidden" style="color: var(--success-color); font-weight: bold; font-size: 1.3rem; margin-bottom: 20px; text-shadow: 0 0 10px rgba(74,222,128,0.4);">
+                    🎉 مبروك! لقد حصلت على العلامة الكاملة بامتياز فائق! 🎉
+                </div>
+
+                <button class="btn" onclick="restartQuiz()">إعادة الاختبار من جديد</button>
+            </div>
         </div>
 
-        <!-- شاشة استدراك الأخطاء (تصحيح الأخطاء فقط) -->
-        <div id="correction-screen" class="hidden">
-            <h1>جولة استدراك وتصحيح الأخطاء</h1>
-            <h3>قم بمراجعة الأسئلة التي أخطأت فيها وعدّل إجاباتك:</h3>
-            <div id="correction-container">
-                <!-- الأسئلة الخاطئة تظهر هنا فقط -->
-            </div>
-            <div class="submit-container">
-                <button type="button" class="btn btn-warning" onclick="submitSecondAttempt()">اعتماد التصحيح وإظهار النتيجة النهائية</button>
-            </div>
-        </div>
-
-        <!-- شاشة النتائج النهائية الأولى والثانية -->
-        <div id="result-screen" class="hidden welcome-center">
-            <h1>تقرير النتيجة النهائية</h1>
-            <div class="student-name-display" id="result-student-name">الطالب: </div>
-
-            <div class="result-box">
-                <div>النتيجة الأولى (قبل الاستدراك):</div>
-                <span class="score-highlight" id="first-score-text">0 / 300</span>
-            </div>
-
-            <div class="result-box" id="second-result-box">
-                <div>النتيجة الثانية (بعد جولة استدراك الأخطاء):</div>
-                <span class="score-highlight" id="second-score-text" style="color: #ffaa00;">0 / 300</span>
-            </div>
-
-            <div id="congrats-message" class="hidden" style="color: var(--success-color); font-weight: bold; font-size: 1.3rem; margin-bottom: 20px; text-shadow: 0 0 10px rgba(85,255,85,0.4);">
-                🎉 مبروك! لقد حصلت على العلامة الكاملة بامتياز فائق! 🎉
-            </div>
-
-            <button class="btn" onclick="restartQuiz()">إعادة الاختبار من جديد</button>
-        </div>
+        <!-- الفوتر الثابت في أسفل الحاوية -->
+        <footer class="page-footer">
+            إعداد الاستاذ محمد تيسير الخرشة &copy; 2026
+        </footer>
     </div>
 
     <script>
@@ -984,7 +1011,6 @@
         }
 
         function submitFirstAttempt() {
-            // التحقق من الإجابة على جميع الأسئلة
             let unansweredCount = 0;
             questions.forEach((qObj, index) => {
                 const selected = document.querySelector(`input[name="question_${index}"]:checked`);
@@ -1000,7 +1026,6 @@
             if (unansweredCount > 0) {
                 validationAlert.classList.remove("hidden");
                 validationAlert.innerText = `عذراً! يوجد (${unansweredCount}) أسئلة لم تقم بالإجابة عليها. الرجاء إكمالها (المحددة بالإطار الأحمر).`;
-                // الانتقال لأول سؤال غير مجاب
                 const firstUnanswered = document.querySelector(".error-highlight");
                 if (firstUnanswered) {
                     firstUnanswered.scrollIntoView({
@@ -1013,7 +1038,6 @@
 
             validationAlert.classList.add("hidden");
 
-            // حساب النتيجة الأولى وتحديد الأخطاء
             let correctCount = 0;
             incorrectQuestionsIndices = [];
 
@@ -1028,12 +1052,10 @@
 
             firstScore = correctCount * 2;
 
-            // إذا لم تكن هناك أخطاء (العلامة الكاملة مباشرة)
             if (incorrectQuestionsIndices.length === 0) {
                 secondScore = 300;
                 showFinalResults(true);
             } else {
-                // الانتقال لجولة استدراك الأخطاء
                 quizScreen.classList.add("hidden");
                 correctionScreen.classList.remove("hidden");
                 renderCorrectionScreen();
@@ -1052,7 +1074,6 @@
                 card.className = "question-card error-highlight";
                 card.id = `correct_card_${qIndex}`;
 
-                // جلب الإجابة السابقة للطالب ليراها
                 const prevSelected = document.querySelector(`input[name="question_${qIndex}"]:checked`);
                 const prevVal = prevSelected ? parseInt(prevSelected.value) : -1;
 
@@ -1068,7 +1089,7 @@
                 });
 
                 card.innerHTML = `
-                    <div class="question-title" style="color: #ffaa00;">تصحيح السؤال ${qIndex + 1}: ${qObj.q}</div>
+                    <div class="question-title" style="color: #fbbf24;">تصحيح السؤال ${qIndex + 1}: ${qObj.q}</div>
                     <div class="options-group">
                         ${optionsHtml}
                     </div>
@@ -1078,11 +1099,9 @@
         }
 
         function submitSecondAttempt() {
-            // تحديث الإجابات الخاطئة بناءً على جولة الاستدراك
             incorrectQuestionsIndices.forEach((qIndex) => {
                 const selected = document.querySelector(`input[name="correction_${qIndex}"]:checked`);
                 if (selected) {
-                    // نقل الإجابة الجديدة إلى الـ input الأصلي للفورم
                     const originalRadio = document.querySelector(`input[name="question_${qIndex}"][value="${selected.value}"]`);
                     if (originalRadio) {
                         originalRadio.checked = true;
@@ -1090,7 +1109,6 @@
                 }
             });
 
-            // إعادة حساب النتيجة الثانية
             let correctCount = 0;
             questions.forEach((qObj, index) => {
                 const selected = document.querySelector(`input[name="question_${index}"]:checked`);
@@ -1117,7 +1135,6 @@
                 secondScoreText.innerText = `${secondScore} من 300`;
             }
 
-            // فحص العلامة الكاملة لإطلاق تأثيرات الفرح (Confetti)
             if (firstScore === 300 || secondScore === 300) {
                 congratsMessage.classList.remove("hidden");
                 triggerConfetti();
@@ -1132,7 +1149,6 @@
         }
 
         function triggerConfetti() {
-            // إطلاق تأثيرات ألعاب إلكترونية واحتفالية فخمة
             var duration = 3 * 1000;
             var end = Date.now() + duration;
 
@@ -1143,7 +1159,8 @@
                     spread: 55,
                     origin: {
                         x: 0
-                    }
+                    },
+                    colors: ['#38bdf8', '#0284c7', '#ffffff', '#4ade80']
                 });
                 confetti({
                     particleCount: 5,
@@ -1151,7 +1168,8 @@
                     spread: 55,
                     origin: {
                         x: 1
-                    }
+                    },
+                    colors: ['#38bdf8', '#0284c7', '#ffffff', '#4ade80']
                 });
 
                 if (Date.now() < end) {
@@ -1161,7 +1179,6 @@
         }
 
         function restartQuiz() {
-            // إعادة ضبط البيانات والصفحات
             studentNameInput.value = "";
             document.getElementById("quiz-form").reset();
             resultScreen.classList.add("hidden");
